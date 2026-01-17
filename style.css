@@ -1,0 +1,623 @@
+/* --- Variables & Reset --- */
+:root {
+    --bg-dark: #121212;
+    --bg-white: #ffffff;
+    --text-dark: #1e1e1e;
+    --text-light: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --accent: #48cae4; /* Cool Cyan/Blue */
+    --accent-dark: #0096c7;
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --spacing-section: 100px;
+    --transition-speed: 0.4s;
+    --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-white);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Common UI Elements --- */
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+    opacity: 0; /* For animation start */
+    animation: fadeInUp 0.8s var(--ease-smooth) forwards;
+    animation-timeline: view(90% 10%);
+}
+
+.section-title.light {
+    color: var(--bg-white);
+}
+
+.divider {
+    width: 60px;
+    height: 4px;
+    background-color: var(--accent);
+    margin: 0 auto 60px;
+    border-radius: 2px;
+}
+
+.divider.light {
+    background-color: var(--accent);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-split {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hero-split.left {
+    background-color: var(--bg-white);
+    padding: 4rem;
+}
+
+.hero-split.right {
+    background-color: var(--bg-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 500px;
+    z-index: 10;
+}
+
+.hero-name {
+    font-size: 4rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+    opacity: 0;
+    animation: slideInLeft 1s var(--ease-smooth) forwards 0.2s;
+}
+
+.hero-name .underline {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 0%;
+    height: 6px;
+    background-color: var(--accent);
+    opacity: 0.6;
+    animation: expandWidth 1s var(--ease-smooth) forwards 1s;
+}
+
+@keyframes expandWidth {
+    to { width: 100%; }
+}
+
+.hero-title {
+    font-size: 1.5rem;
+    color: var(--accent-dark);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeInUp 0.8s var(--ease-smooth) forwards 0.5s;
+}
+
+.hero-text {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 450px;
+    opacity: 0;
+    animation: fadeInUp 0.8s var(--ease-smooth) forwards 0.7s;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: scaleIn 1s var(--ease-smooth) forwards 0.5s;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transition: transform 0.5s var(--ease-smooth), box-shadow 0.5s var(--ease-smooth);
+    z-index: 2;
+    filter: brightness(0.9) contrast(1.1);
+}
+
+.hero-image:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.hero-image-bg {
+    position: absolute;
+    top: 20px;
+    right: -20px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+    z-index: 1;
+    opacity: 0.3;
+}
+
+/* --- Projects Section (Timeline) --- */
+.projects-section {
+    padding: var(--spacing-section) 0;
+    background-color: var(--bg-white);
+    position: relative;
+}
+
+.timeline-container {
+    padding: 40px 0;
+    position: relative;
+    overflow-x: auto; /* Allow horizontal scroll if needed on small screens */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 400px;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e0e0e0;
+    z-index: 1;
+}
+
+.timeline-year-group {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.year-marker {
+    background-color: var(--bg-white);
+    font-weight: 700;
+    color: var(--accent-dark);
+    padding: 0 10px;
+    margin-bottom: 20px; /* Space for line */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.project-cards {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    min-height: 300px;
+}
+
+.project-card {
+    background-color: #fff;
+    padding: 20px;
+    width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 4px solid var(--accent);
+    text-align: left;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeInUp 0.6s var(--ease-smooth) forwards;
+    animation-timeline: view(80% 20%);
+}
+
+.project-card.top {
+    bottom: 60%; /* Position above line */
+}
+
+.project-card.bottom {
+    top: 60%; /* Position below line */
+}
+
+.project-card:hover {
+    transform: translateX(-50%) translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.project-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: var(--text-dark);
+}
+
+.project-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* --- Experience Section (Vertical Resume) --- */
+.experience-section {
+    padding: var(--spacing-section) 0;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.resume-timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.resume-line {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #333;
+}
+
+.resume-item {
+    padding-left: 60px;
+    margin-bottom: 50px;
+    position: relative;
+    opacity: 0;
+    animation: slideInRight 0.6s var(--ease-smooth) forwards;
+    animation-timeline: view(85% 15%);
+}
+
+.resume-dot {
+    position: absolute;
+    left: 13px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    border: 3px solid var(--bg-dark);
+    box-shadow: 0 0 0 2px var(--accent); /* Outer ring trick */
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.resume-item:hover .resume-dot {
+    transform: scale(1.2);
+    background-color: var(--bg-white);
+}
+
+.resume-content {
+    background-color: rgba(255,255,255,0.03);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.resume-content:hover {
+    background-color: rgba(255,255,255,0.06);
+    transform: translateX(10px);
+}
+
+.resume-date {
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.resume-role {
+    font-size: 1.4rem;
+    color: var(--bg-white);
+    margin-bottom: 10px;
+}
+
+.resume-role .company {
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+.resume-content p {
+    color: var(--text-muted);
+}
+
+/* --- Skills Section --- */
+.skills-section {
+    padding: var(--spacing-section) 0;
+    background-color: var(--bg-white);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.skill-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-top: 5px solid var(--accent);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    animation: fadeInUp 0.6s var(--ease-smooth) forwards;
+    animation-timeline: view(85% 15%);
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.skill-category {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: var(--text-dark);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.skill-category::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: var(--accent);
+}
+
+.skill-list li {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.skill-list li::before {
+    content: '•';
+    color: var(--accent);
+    margin-right: 10px;
+    font-size: 1.5rem;
+    line-height: 1rem;
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: #0a0a0a;
+    color: var(--text-muted);
+    padding: 50px 0;
+    text-align: center;
+    border-top: 1px solid #222;
+}
+
+.footer-links {
+    margin-bottom: 20px;
+}
+
+.footer-link {
+    margin: 0 20px;
+    color: var(--bg-white);
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent);
+}
+
+.footer-link:hover::after {
+    width: 100%;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 900px) {
+    .hero-section {
+        flex-direction: column-reverse;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .hero-split {
+        width: 100%;
+        padding: 60px 20px;
+    }
+
+    .hero-image-container {
+        width: 300px;
+        height: 350px;
+    }
+    
+    .hero-name {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+
+    /* Stack Projects Timeline Vertically */
+    .timeline-container {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+
+    .timeline-line {
+        width: 2px;
+        height: 100%;
+        left: 20px;
+        top: 0;
+    }
+
+    .timeline-year-group {
+        flex-direction: row;
+        width: 100%;
+        margin-bottom: 40px;
+        align-items: flex-start;
+    }
+
+    .year-marker {
+        position: relative;
+        top: 0;
+        transform: none;
+        margin-right: 20px;
+        min-width: 60px;
+        background: none;
+    }
+
+    .project-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        min-height: auto;
+    }
+
+    .project-card.top, .project-card.bottom {
+        position: relative;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: none;
+        width: 100%;
+    }
+    
+    .project-card:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Common */
+    .hero-content {
+        text-align: center;
+    }
+    
+    .hero-name .underline {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%; /* Override */
+    }
+
+    .hero-image-container {
+        width: 250px;
+        height: 300px;
+    }
+}
